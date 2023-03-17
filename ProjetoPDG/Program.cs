@@ -23,8 +23,9 @@ namespace ProjetoPDG {
             }
     }
     class FabricaDeGiz {
-        public list<PausDeGiz> ObterGiz(int p) {
-            list<PausDeGiz> temp = new list<PausDeGiz>();
+        public List<PausDeGiz> ObterGiz(int p) 
+        {
+            List<PausDeGiz> temp = new List<PausDeGiz>();
             for (int i = 0; i < p; i++)
                 temp.Add(new PausDeGiz(1));
             return temp;
@@ -37,23 +38,28 @@ namespace ProjetoPDG {
                 return false;
         }
     };
-    class Belial { 
-        private list<PausDeGiz> AMinhaCopiaPrivadaDeGiz;
-        public Belial(list<PausDeGiz> lista) {
+    class Belial 
+    { 
+        private List<PausDeGiz> AMinhaCopiaPrivadaDeGiz;
+        public Belial(List<PausDeGiz> lista)
+        {
             AMinhaCopiaPrivadaDeGiz = lista;
         }
-        public struct PausEPeso {
+        public struct PausEPeso 
+        {
             int nPausDeGiz;
             int PesoTotal;
         };
-        public int nPausDeGiz {
+        public int nPausDeGiz 
+        {
             get { return AMinhaCopiaPrivadaDeGiz.Count; }
             set {
                 if (nPausDeGiz != value)
                     AMinhaCopiaPrivadaDeGiz = (new FabricaDeGiz()).ObterGiz(value);
             }
         }
-        public int PesoTotal {
+        public int PesoTotal
+        {
             get {
                 int pesoacumulado = 0;
                 foreach (PausDeGiz pau in AMinhaCopiaPrivadaDeGiz)
@@ -65,7 +71,8 @@ namespace ProjetoPDG {
                     AMinhaCopiaPrivadaDeGiz = ((new FabricaDeGiz()).ObterGiz(value));
             }
         }
-        public bool MudarPesoTotal(int novoPeso, list<PausDeGiz> lista) {
+        public bool MudarPesoTotal(int novoPeso, List<PausDeGiz> lista) 
+        {
             int pesoacumulado = 0;
             for (int i = 0; i < lista.Count; i++) {
                 PausDeGiz pau = lista[i];
@@ -94,42 +101,43 @@ namespace ProjetoPDG {
     }
     class Program  {
         private FabricaDeGiz fabrica = new FabricaDeGiz();
-        static private list<PausDeGiz> OMeuGiz;
-        public void Amadis(int gramas) {
+        static private List<PausDeGiz> OMeuGiz;
+        public void Amadis(int gramas)
+        {
             OMeuGiz = fabrica.ObterGiz(gramas);
         }
         static void Main(string[] args) {
             Program programa = new Program();
             //Obter giz para o cliente Dante.
             programa.Amadis(10);
-            cout << "Obtive corretamente 10 gramas de giz para o cliente Dante.";
+            Console.WriteLine( "Obtive corretamente 10 gramas de giz para o cliente Dante.");
             //Obter giz para o cliente Gil Vicente.
             //Usar para o exemplo do garbage collector
             programa.Amadis(44);
-            cout << "Obtive corretamente 44 gramas de giz para o cliente Gil Vicente.";
+            Console.WriteLine("Obtive corretamente 44 gramas de giz para o cliente Gil Vicente.");
             Belial belial = new Belial(OMeuGiz);
-            cout << "Não sabem que meti aqui esta linha, mas posso dizer que os " + belial.PesoTotal + " gramas de giz vêm em " + belial.nPausDeGiz + " paus.";
-            cout << "Em média, " + belial.PesoTotal / belial.nPausDeGiz + " gramas por pau.";
+            Console.WriteLine("Não sabem que meti aqui esta linha, mas posso dizer que os " + belial.PesoTotal + " gramas de giz vêm em " + belial.nPausDeGiz + " paus.");
+            Console.WriteLine("Em média, " + belial.PesoTotal / belial.nPausDeGiz + " gramas por pau.");
             belial.MudarPesoTotal(100);
-            cout << "No Belial estão " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal);
+            Console.WriteLine("No Belial estão " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal);
             belial.MudarPesoTotal(85);
-            cout << "No Belial estão agora " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal;
+            Console.WriteLine("No Belial estão agora " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal);
             belial.MudarPesoTotal(88);
-            cout << "No Belial estão agora " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal;
-            list<PausDeGiz> ListaDeTeste = (new FabricaDeGiz()).ObterGiz(20);
-            cout << "Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam " + ListaDeTeste.Count + " gramas.";
+            Console.WriteLine("No Belial estão agora " + belial.nPausDeGiz + " paus de giz, que pesam " + belial.PesoTotal);
+            List<PausDeGiz> ListaDeTeste = (new FabricaDeGiz()).ObterGiz(20);
+            Console.WriteLine("Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam " + ListaDeTeste.Count + " gramas.");
             belial.MudarPesoTotal(100, ListaDeTeste);
-            cout << "Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam 100 gramas.";
+            Console.WriteLine("Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam 100 gramas.");
             belial.MudarPesoTotal(18, ListaDeTeste);
-            cout << "Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam 18 gramas.";
-            cout << Environment.NewLine;
-            cout << Environment.NewLine;
+            Console.WriteLine("Na lista de teste estão agora " + ListaDeTeste.Count + " paus de giz, que pesam 18 gramas.");
+            Console.WriteLine(Environment.NewLine);
+            Console.WriteLine(Environment.NewLine);
             FabricaDeGiz fabrica = new FabricaDeGiz();
             PausDeGiz paudegiz = new PausDeGiz(10);
-            cout << "O pau tem " + paudegiz.Peso + " gramas.";
+            Console.WriteLine("O pau tem " + paudegiz.Peso + " gramas.");
             fabrica.MudarPeso(paudegiz, 20);
-            cout << "O pau tem " + paudegiz.Peso + " gramas. Devia ter 20, tem?";
-            cout << "<<CARO ALUNO: pode pressionar qualquer tecla para concluir este exemplo.>>";
+            Console.WriteLine("O pau tem " + paudegiz.Peso + " gramas. Devia ter 20, tem?");
+            Console.WriteLine("<<CARO ALUNO: pode pressionar qualquer tecla para concluir este exemplo.>>");
             Console.ReadKey();
         }
     }
